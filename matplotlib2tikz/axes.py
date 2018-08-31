@@ -2,6 +2,7 @@
 #
 import matplotlib as mpl
 import numpy
+import re
 
 from . import color
 
@@ -538,6 +539,7 @@ def _get_ticks(data, xy, ticks, ticklabels):
         pgfplots_ticks.append(tick)
         # store the label anyway
         label = ticklabel.get_text()
+        label = re.sub('(\$\d*),(\d*\$)',r'\1{,}\2',label) # If Ticklabels have locale formatter "," they are escaped
         if ticklabel.get_visible():
             pgfplots_ticklabels.append(label)
         else:
